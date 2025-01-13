@@ -1,13 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = 'https://www.pricecharting.com/console/pokemon-scarlet-&-violet-151?sort=model-number&model-number=&exclude-variants=true&show-images=false&in-collection='
+url = 'https://www.pricecharting.com/console/pokemon-scarlet-&-violet-151?sort=popularity&model-number=&exclude-variants=true&show-images=false&in-collection='
 html_text = requests.get(url).text
 soup = BeautifulSoup(html_text, 'html.parser')
 
 # Find all table rows with product information
 product_rows = soup.find_all('tr', {'id': lambda x: x and x.startswith('product-')})
 
+print("Organized by Popularity")
 for row in product_rows:
     # Extract product name
     product_name = row.find('td', {'class': 'title'}).get_text(strip=True)
